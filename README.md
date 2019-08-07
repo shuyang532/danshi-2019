@@ -16,3 +16,18 @@ npm test
 ```
 npm start
 ```
+## 辅助工具
+
++ 图片外链生成器
+```
+http://chuantu.biz/
+只能保存七天
+```
++ mock接口模拟
+```
+https://apizza.net/pro/#/personal/projects/
+```
++ 前后端接口文档
+```
+https://www.zybuluo.com/lishuyang/note/1525437
+```
