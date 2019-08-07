@@ -26,6 +26,7 @@ import Footer from './Footer'; //版权所有
 import PaperSheet from './board/PaperSheet'; //公告板
 import SlideShow from './swiper/SlideShow'; //活动轮播
 import Activity from './activity/Activity'; //活动广场
+import SingleActivityInfo from './activity/SingleActivityInfo'; //活动详情
 import UserCenter from './user/UserCenter'; //个人主页
 import LoginBefore from './login/LoginBefore'; //登录前
 import LoginAfter from './login/LoginAfter'; //登录后
@@ -196,7 +197,7 @@ class Navigation extends Component {
             <ListItem button component={Link} to={'/slideshow'}>
               <ListItemText primary="热门活动" />
             </ListItem>
-            <ListItem button component={Link} to={'/activity'}>
+            <ListItem button component={Link} to={'/singleActivityInfo'}>
               <ListItemText primary="活动广场" />
             </ListItem>
             <ListItem button component={Link} to={'/papersheet'}>
@@ -221,6 +222,7 @@ class Navigation extends Component {
             <Route path= {'/papersheet'} component={PaperSheet}/>
             <Route path= {'/slideshow'} component={SlideShow}/>
             <Route path= {'/activity'} component={Activity}/>
+            <Route path= {'/singleActivityInfo'} component={SingleActivityInfo}/>
             <Route path= {'/userCenter'} component={UserCenter}/>
           </Switch>
 

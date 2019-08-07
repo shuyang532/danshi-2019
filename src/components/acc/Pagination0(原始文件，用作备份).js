@@ -17,7 +17,7 @@ class Pagination extends Component {
 
   componentDidMount() {
     this.setState({
-      totalPage: this.props.pageConfig
+      totalPage: this.props.pageConfig.totalPage
     });
     this.props.pageCallbackFn(this.state.currentPage)
   }
@@ -27,7 +27,7 @@ class Pagination extends Component {
     const {currentPage,groupCount,startPage,totalPage} = this.state;
     let pages = [];
     //上一页按钮
-    pages.push(<li key = {0} onClick = {this.prePageHandeler} className = {currentPage === 1 ? "nomore" : null}> 上一页 </li>);
+    pages.push(<li className = {currentPage === 1 ? "nomore" : null} onClick = {this.prePageHandeler} key = {0}> 上一页 </li>);
     //页码显示
     if (totalPage <= 10) {
       //总页码小于等于10时，全部显示出来
@@ -37,7 +37,7 @@ class Pagination extends Component {
     } else {
       //总页码大于10时，部分显示
       //第一页
-      pages.push(<li key = {1} onClick = {(e) => this.pageClick(1)} className = {currentPage === 1 ? "activePage" : null}> 1 </li>);
+      pages.push(<li className = {currentPage === 1 ? "activePage" : null} key = {1} onClick = {(e) => this.pageClick(1)}> 1 </li>);
       let pageLength = 0;
       if (groupCount + startPage > totalPage) {
         pageLength = totalPage
@@ -51,7 +51,7 @@ class Pagination extends Component {
       //非第一页和最后一页显示
       for (let i = startPage; i < pageLength; i++) {
         if (i <= totalPage - 1 && i > 1) {
-          pages.push(<li key = {i} onClick = {(e) => this.pageClick(i)} className = {currentPage === i ? "activePage" : null}> {i} </li>);
+          pages.push(<li className = {currentPage === i ? "activePage" : null} key = {i} onClick = {(e) => this.pageClick(i)}> {i} </li>);
         }
       }
       //后面省略号
@@ -59,10 +59,10 @@ class Pagination extends Component {
         pages.push(<li className = "" key = {-2}> ··· </li>);
       }
       //最后一页
-      pages.push(<li key = {totalPage} onClick = {(e) => this.pageClick(totalPage)} className = {currentPage === totalPage ? "activePage" : null}> {totalPage} </li>);
+      pages.push(<li className = {currentPage === totalPage ? "activePage" : null} key = {totalPage} onClick = {(e) => this.pageClick(totalPage)}> {totalPage} </li>);
     }
     //下一页按钮
-    pages.push(<li key = {totalPage + 1} onClick = {this.nextPageHandeler} className = {currentPage === totalPage ? "nomore" : null}> 下一页 </li>);
+    pages.push(<li className = {currentPage === totalPage ? "nomore" : null} onClick = {this.nextPageHandeler} key = {totalPage + 1}> 下一页 </li>);
     return pages;
   }
   //页码点击
