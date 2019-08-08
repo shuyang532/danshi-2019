@@ -5,19 +5,17 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import cookie from 'react-cookies';
 
-import CreateActivity from './CreateActivity'; //活动创建页
-import ActivityDisplay from '../activity/ActivityDisplay'; //活动浏览页（创建）
+import ActivityDisplay from '../activity/ActivityDisplay'; //活动浏览页（收藏）
 
 
 const styles = (theme) => ({
 
 })
 
-class MyCreate extends Component{
+class MyJoin extends Component{
   constructor() {
     super();
     this.state = {
-      isCreate: false, //true表示进入创建页
       activitiesList: [],
       isSecond: false,
     }
@@ -29,7 +27,7 @@ class MyCreate extends Component{
       axios.get('http://rest.apizza.net/mock/f36bd02a14a936b95e5fe39028bfe151/data/activity', {
         params: {
           userId: userId,
-          relation: "create",
+          relation: "join",
           // 其他参数默认，即不分页
         }
       }).then((res) => { //res.data
@@ -43,43 +41,18 @@ class MyCreate extends Component{
     }
   }
 
-  handleCreate = () => {
-    if (this.state.isCreate) {
-      this.setState({
-        isCreate: false,
-      });
-    } else {
-      this.setState({
-        isCreate: true,
-      });
-    }
-  }
-
   render(){
-    const isCreate = this.state.isCreate;
-    let show;
-    if (isCreate) {
-      show = <CreateActivity onClick={this.handleCreate}/>; //显示创建页
-    } else {
-      show = (
-        <div>
-        <Button variant="contained" color="primary" onClick={this.handleCreate}> 创建新活动 </Button>
-        <ActivityDisplay activities={this.state.activitiesList}/>
-        </div>
-      );//显示活动页
-    }
-
     return (
       <div>
-         {show}
+         <ActivityDisplay activities={this.state.activitiesList}/>
       </div>
     );
 
   }
 }
 
-MyCreate.propTypes = {
+MyJoin.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MyCreate);
+export default withStyles(styles)(MyJoin);

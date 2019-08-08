@@ -151,6 +151,7 @@ class CreateActivity extends Component{
       if (this.state.result) {
         alert("活动创建成功");
         alert("(测试读取，使用时应删去)" + this.state.message);
+        this.props.onClick();
       } else {
         alert(this.state.message);
       }

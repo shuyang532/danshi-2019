@@ -13,86 +13,62 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import axios from 'axios';
+import cookie from 'react-cookies';
 
 
 const styles = () => ({
   root: {
     flexGrow: 1,
-    margin: 5,
+    margin: 10,
   },
 });
 
-const rows = [
-  {
-    identityId: 1,
-    name: '乒乓球协会',
-    personNum: 159,
-    activityNum: 22,
-    myIdentity: '社团长',
-    operation: '移交社长身份，添加/移除管理员，创建/修改活动'
-  },
-  {
-    identityId: 2,
-    name: '乒乓球协会',
-    personNum: 159,
-    activityNum: 22,
-    myIdentity: '社团长',
-    operation: '移交社长身份，添加/移除管理员，创建/修改活动'
-  },
-  {
-    identityId: 3,
-    name: '乒乓球协会',
-    personNum: 159,
-    activityNum: 22,
-    myIdentity: '社团长',
-    operation: '移交社长身份，添加/移除管理员，创建/修改活动'
-  },
-  {
-    identityId: 4,
-    name: '文学社',
-    personNum: 237,
-    activityNum: 33,
-    myIdentity: '管理员',
-    operation: '创建/修改活动'
-  },
-  {
-    identityId: 5,
-    name: '文学社',
-    personNum: 237,
-    activityNum: 33,
-    myIdentity: '管理员',
-    operation: '创建/修改活动'
-  },
-  {
-    identityId: 6,
-    name: '文学社',
-    personNum: 237,
-    activityNum: 33,
-    myIdentity: '管理员',
-    operation: '创建/修改活动'
-  },
-  {
-    identityId: 7,
-    name: '动漫社',
-    personNum: 262,
-    activityNum: 22,
-    myIdentity: '普通成员',
-    operation: '无'
-  },
-  {
-    identityId: 8,
-    name: '动漫社',
-    personNum: 262,
-    activityNum: 22,
-    myIdentity: '普通成员',
-    operation: '无'
-  },
+const rows = [{
+    teamId: 10,
+    teamName: "复旦大学某社团0",
+    teamLeader: true,
+    teamAdmin: false
+  },{
+    teamId: 11,
+    teamName: "复旦大学某社团1",
+    teamLeader: true,
+    teamAdmin: false
+  }
 ];
 
 class Identity extends Component{
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      teams:'',
+      isSecond: false,
+    };
+  }
+
+  componentDidMount() {
+    let userId = cookie.load('userId');
+    if (userId != null && userId != '') {
+      axios.get('http://rest.apizza.net/mock/f36bd02a14a936b95e5fe39028bfe151/data/user', {
+        params: {}
+      }).then((res) => { //res.data
+        this.setState({
+          teams: res.data.team,
+          isSecond: true,
+        })
+      }).catch((err) => {
+        alert('读取个人集体账户信息出现问题');
+      })
+    }
+
+  }
+
+  handleTeamDetail = () =>{
+
+  }
+
+  handleTeamMember = () =>{
+
   }
 
   render(){
@@ -104,22 +80,25 @@ class Identity extends Component{
 
                 <TableHead>
                   <TableRow>
-                    <TableCell>社团名称</TableCell>
-                    <TableCell align="center">社团总人数</TableCell>
-                    <TableCell align="center">社团活动数</TableCell>
-                    <TableCell align="center">我的身份</TableCell>
-                    <TableCell align="center">操作列表</TableCell>
+                    <TableCell> 社团ID </TableCell>
+                    <TableCell align="center"> 社团名称 </TableCell>
+                    <TableCell align="center"> 我的社团身份 </TableCell>
+                    <TableCell align="center"> 操作列表 </TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
-                {rows.map(row => (
-                  <TableRow key={row.identityId}>
-                  <TableCell component="th" scope="row">{row.name}</TableCell>
-                  <TableCell align="center">{row.personNum}</TableCell>
-                  <TableCell align="center">{row.activityNum}</TableCell>
-                  <TableCell align="center">{row.myIdentity}</TableCell>
-                  <TableCell align="center">{row.operation}</TableCell>
+                {(this.state.isSecond ? this.state.teams : rows).map(team => (
+                  <TableRow key={team.teamId}>
+                  <TableCell component="th" scope="row">{team.teamId}</TableCell>
+                  <TableCell align="center">{team.teamName}</TableCell>
+                  <TableCell align="center">{team.teamLeader?'社长':''}{!team.teamLeader&&team.teamAdmin?'管理员':''}{!team.teamLeader&&!team.teamAdmin?'普通成员':''}</TableCell>
+                  <TableCell align="center">
+
+                    <Button variant="contained" color="primary" onClick={this.handleTeamDetail} margin="30"> 社团详情 </Button>
+                    {team.teamLeader ? <Button variant="contained" color="primary" onClick={this.handleTeamMember}> 成员管理 </Button> : ''}
+
+                  </TableCell>
                   </TableRow>
                 ))}
                 </TableBody>

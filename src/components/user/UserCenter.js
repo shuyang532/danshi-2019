@@ -6,13 +6,15 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+//个人组件
 import PersonalInfo from './PersonalInfo'; //账号信息
-import ActivityDisplay from '../activity/ActivityDisplay'; //活动展示
-import activities from '../activity/TotalData'; //活动信息
 import Feedback from './Feedback'; //反馈与体验
 import Identity from './Identity'; //集体账户
-import CreateActivity from './CreateActivity'; //创建活动
-// import SimpleSelect from './SimpleSelect';
+import MyCreate from './MyCreate'; //创建活动tab管理
+import MyFollow from './MyFollow'; //收藏活动tab
+import MyJoin from './MyJoin'; //报名活动tab
+
+import SplitButton from './SplitButton'; //按钮组
 
 const styles = (theme) => ({
   root: {
@@ -62,26 +64,26 @@ class UserCenter extends Component {
 
         <Typography component="div" role="tabpanel" hidden={this.state.value !== 1} id='tabpanel-1'>
           <Box p={3}>
-            <Identity/>
+            <SplitButton/>
+            {/*<Identity/>*/}
           </Box>
         </Typography>
 
         <Typography component="div" role="tabpanel" hidden={this.state.value !== 2} id='tabpanel-2'>
           <Box p={3}>
-            <ActivityDisplay activities={activities.slice(0,6)}/>
+            <MyJoin/>
           </Box>
         </Typography>
 
         <Typography component="div" role="tabpanel" hidden={this.state.value !== 3} id='tabpanel-3'>
           <Box p={3}>
-            <ActivityDisplay activities={activities.slice(0,6)}/>
+            <MyFollow/>
           </Box>
         </Typography>
 
         <Typography component="div" role="tabpanel" hidden={this.state.value !== 4} id='tabpanel-4'>
           <Box p={3}>
-            {/*<ActivityDisplay activities={activities.slice(0,6)}/> <CreateActivity/>*/}
-            <CreateActivity/>
+            <MyCreate/>
           </Box>
         </Typography>
 

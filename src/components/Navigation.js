@@ -28,9 +28,6 @@ import SlideShow from './swiper/SlideShow'; //活动轮播
 import Activity from './activity/Activity'; //活动广场
 import SingleActivityInfo from './activity/SingleActivityInfo'; //活动详情
 import UserCenter from './user/UserCenter'; //个人主页
-import LoginBefore from './login/LoginBefore'; //登录前
-import LoginAfter from './login/LoginAfter'; //登录后
-// import LoginShow from './login/LoginShow'; //登录后
 import LoginControl from './login/LoginControl';
 
 const drawerWidth = 200;
@@ -197,7 +194,7 @@ class Navigation extends Component {
             <ListItem button component={Link} to={'/slideshow'}>
               <ListItemText primary="热门活动" />
             </ListItem>
-            <ListItem button component={Link} to={'/singleActivityInfo'}>
+            <ListItem button component={Link} to={'./activity'}>
               <ListItemText primary="活动广场" />
             </ListItem>
             <ListItem button component={Link} to={'/papersheet'}>
