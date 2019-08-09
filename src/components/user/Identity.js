@@ -21,7 +21,7 @@ const styles = () => ({
   root: {
     flexGrow: 1,
     margin: 10,
-  },
+  }
 });
 
 const rows = [{
@@ -29,7 +29,8 @@ const rows = [{
     teamName: "复旦大学某社团0",
     teamLeader: true,
     teamAdmin: false
-  },{
+  },
+  {
     teamId: 11,
     teamName: "复旦大学某社团1",
     teamLeader: true,
@@ -63,13 +64,10 @@ class Identity extends Component{
 
   }
 
-  handleTeamDetail = () =>{
-
+  handleTeamDetail = (teamId, e) =>{
+    this.props.onClick(teamId);
   }
 
-  handleTeamMember = () =>{
-
-  }
 
   render(){
         const {classes} =this.props;
@@ -94,10 +92,7 @@ class Identity extends Component{
                   <TableCell align="center">{team.teamName}</TableCell>
                   <TableCell align="center">{team.teamLeader?'社长':''}{!team.teamLeader&&team.teamAdmin?'管理员':''}{!team.teamLeader&&!team.teamAdmin?'普通成员':''}</TableCell>
                   <TableCell align="center">
-
-                    <Button variant="contained" color="primary" onClick={this.handleTeamDetail} margin="30"> 社团详情 </Button>
-                    {team.teamLeader ? <Button variant="contained" color="primary" onClick={this.handleTeamMember}> 成员管理 </Button> : ''}
-
+                  <Button variant="contained" color="primary" onClick={(e) => this.handleTeamDetail(team.teamId)}> 社团详情 </Button>
                   </TableCell>
                   </TableRow>
                 ))}
