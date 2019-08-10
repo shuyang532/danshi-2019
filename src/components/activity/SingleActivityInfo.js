@@ -175,7 +175,7 @@ class SingleActivityInfo extends Component {
 
 
 
-      <CardMedia component="img" src={this.state.isSecond ? this.state.activityInfo.cover : 'http://chuantu.xyz/t6/702/1565248824x1031866013.jpg'} title="活动封面图" className={classes.cover}/>
+      <CardMedia component="img" src={this.state.isSecond ? this.state.activityInfo.cover : 'http://chuantu.xyz/t6/702/1565428286x1033347913.jpg'} title="活动封面图" className={classes.cover}/>
       </Card>
     );
   }

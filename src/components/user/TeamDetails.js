@@ -56,7 +56,7 @@ const styles = (theme) => ({
 
 const test = [{
   "userId": 1,
-  "nickname": "test"
+  "nickname": "unknown"
 }]
 
 class TeamDetails extends Component{
@@ -64,7 +64,7 @@ class TeamDetails extends Component{
     super();
     this.state = {
       isSecond: false,
-      isLeader: false, //是否是社长
+      isLeader: false, //是否是社长(父组件传参)
       email01: '', //待添加普通用户邮箱
       email02: '', //待删除普通用户邮箱
       email03: '', //待添加管理员邮箱
@@ -73,7 +73,7 @@ class TeamDetails extends Component{
       currentPassword: '', //验证当前用户的密码（为了安全性）
       result: '',
       message: '',
-      teamId: 10,
+      teamId: 1, //社团ID（父组件传参）
       name: '', //社团名称
       leader: '', //社长
       admin: '', //集体账户管理员
@@ -82,9 +82,12 @@ class TeamDetails extends Component{
   }
 
   componentDidMount() {
+    this.setState({
+      teamId: this.props.teamId,
+    });
     axios.get('http://rest.apizza.net/mock/f36bd02a14a936b95e5fe39028bfe151/data/team', {
       params: {
-        teamId: this.state.teamId,
+        teamId: this.state.teamId
       }
     }).then((res) => { //res.data
       this.setState({
@@ -92,7 +95,8 @@ class TeamDetails extends Component{
         leader: res.data.context[this.state.teamId].leader,
         admin: res.data.context[this.state.teamId].admin,
         member: res.data.context[this.state.teamId].member,
-        isSecond: true,
+        isLeader: this.props.isLeader,
+        isSecond: true
       })
     }).catch((err) => {
       alert('读取社团信息出现问题');
@@ -215,7 +219,7 @@ class TeamDetails extends Component{
         return(
           <div className={classes.root}>
 
-          <div className={this.state.isLeader ? classes.half : classes.hidden}>
+          <div className={classes.half}>
 
             <Paper className={classes.paper}>
               <Table>
@@ -256,33 +260,33 @@ class TeamDetails extends Component{
 
           </div>
 
-          <div className={classes.half}>
+          <div className={this.state.isLeader ? classes.half : classes.hidden}>
 
-          <div className={classes.line}>
-          <TextField id="email01" label="添加普通成员账户（输入复旦学邮哟~）" value={this.state.email01} onChange={(e) =>this.handleChange('email01',e)} margin="normal" className={classes.textField}/>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleAddMember}> 确认添加 </Button>
-          </div>
+            <div className={classes.line}>
+            <TextField id="email01" label="添加普通成员账户（输入复旦学邮哟~）" value={this.state.email01} onChange={(e) =>this.handleChange('email01',e)} margin="normal" className={classes.textField}/>
+            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleAddMember}> 确认添加 </Button>
+            </div>
 
-          <div className={classes.line}>
-          <TextField id="email02" label="删除普通成员账户（输入复旦学邮哟~）" value={this.state.email02} onChange={(e) =>this.handleChange('email02',e)} margin="normal" className={classes.textField}/>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleDelMember}> 确认删除 </Button>
-          </div>
+            <div className={classes.line}>
+            <TextField id="email02" label="删除普通成员账户（输入复旦学邮哟~）" value={this.state.email02} onChange={(e) =>this.handleChange('email02',e)} margin="normal" className={classes.textField}/>
+            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleDelMember}> 确认删除 </Button>
+            </div>
 
-          <div className={classes.line}>
-          <TextField id="email03" label="添加管理员账户（输入复旦学邮哟~）" value={this.state.email03} onChange={(e) =>this.handleChange('email03',e)} margin="normal" className={classes.textField}/>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleAddAdmin}> 确认添加 </Button>
-          </div>
+            <div className={classes.line}>
+            <TextField id="email03" label="添加管理员账户（输入复旦学邮哟~）" value={this.state.email03} onChange={(e) =>this.handleChange('email03',e)} margin="normal" className={classes.textField}/>
+            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleAddAdmin}> 确认添加 </Button>
+            </div>
 
-          <div className={classes.line}>
-          <TextField id="email04" label="删除管理员账户（输入复旦学邮哟~）" value={this.state.email04} onChange={(e) =>this.handleChange('email04',e)} margin="normal" className={classes.textField}/>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleDelAdmin}> 确认删除 </Button>
-          </div>
+            <div className={classes.line}>
+            <TextField id="email04" label="删除管理员账户（输入复旦学邮哟~）" value={this.state.email04} onChange={(e) =>this.handleChange('email04',e)} margin="normal" className={classes.textField}/>
+            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleDelAdmin}> 确认删除 </Button>
+            </div>
 
-          <div className={classes.line}>
-          <TextField id="email05" label="移交社长账户（输入复旦学邮哟~）" value={this.state.email05} onChange={(e) =>this.handleChange('email05',e)} margin="normal" className={classes.textField}/>
-          <TextField id="currentPassword" label="移交社长账户一定要输入当前密码验证哦~" value={this.state.currentPassword} onChange={(e) =>this.handleChange('currentPassword',e)} margin="normal" className={classes.textField}/>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleTranLeader}> 确认移交 </Button>
-          </div>
+            <div className={classes.line}>
+            <TextField id="email05" label="移交社长账户（输入复旦学邮哟~）" value={this.state.email05} onChange={(e) =>this.handleChange('email05',e)} margin="normal" className={classes.textField}/>
+            <TextField id="currentPassword" label="移交社长账户一定要输入当前密码验证哦~" value={this.state.currentPassword} onChange={(e) =>this.handleChange('currentPassword',e)} margin="normal" className={classes.textField}/>
+            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleTranLeader}> 确认移交 </Button>
+            </div>
 
           </div>
 

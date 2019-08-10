@@ -26,23 +26,23 @@ class LoginControl extends Component {
   }
 
   handleLoginClick = () => {
-    this.setState({
-      isLoggedIn: true
-    });
+    let userId = cookie.load('userId');
+    if (userId != null && userId != '') {
+      this.setState({isLoggedIn: true});
+    }
   }
 
   handleLogoutClick = () => {
     this.setState({
       isLoggedIn: false
     });
-     // this.context.router.history.push('/papersheet');
   }
 
   render() {
     const isLoggedIn = this.state.isLoggedIn;
     let show;
     if (isLoggedIn) {
-      show = <LoginAfter onClick={this.handleLogoutClick}  history ={this.props.history}/>; //已登录
+      show = <LoginAfter onClick={this.handleLogoutClick} history ={this.props.history}/>; //已登录
     } else {
       show = <LoginBefore onClick={this.handleLoginClick} />; //未登录
     }
@@ -56,7 +56,7 @@ class LoginControl extends Component {
 }
 
 LoginControl.propTypes = {
-    
+
 }
 
 

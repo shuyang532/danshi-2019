@@ -160,19 +160,29 @@ class EmailRegister extends Component {
         </ListItem>
 
         <Dialog open = {this.state.openRe} onClose = {this.handleCloseRe}>
-        <DialogTitle> 学邮注册 </DialogTitle>
+          <DialogTitle> 学邮注册 </DialogTitle>
 
-        <DialogContent className = {classes.content}>
-        <TextField margin = 'dense' id = 'email' label = {this.state.emailLabel} type = 'email' value = {this.state.email} className = {classes.textField} onChange = {(e)=>this.handleChange('email',e)} fullWidth/>
-        <TextField margin = 'dense' id = 'password' label = {this.state.passLabel} type = 'password' value = {this.state.password} className = {classes.textField} onChange = {(e)=>this.handleChange('password',e)} fullWidth/>
-        <TextField margin = 'dense' id = 'nickname' label = {this.state.nameLabel} type = 'nickname' value = {this.state.nickname} className = {classes.textField} onChange = {(e)=>this.handleChange('nickname',e)} fullWidth/>
-        </DialogContent>
+          <DialogContent className = {classes.content}>
+          <TextField margin = 'dense' id = 'email' label = {this.state.emailLabel} type = 'email' value = {this.state.email} className = {classes.textField} onChange = {(e)=>this.handleChange('email',e)} fullWidth/>
+          <TextField margin = 'dense' id = 'password' label = {this.state.passLabel} type = 'password' value = {this.state.password} className = {classes.textField} onChange = {(e)=>this.handleChange('password',e)} fullWidth/>
+          <TextField margin = 'dense' id = 'nickname' label = {this.state.nameLabel} type = 'nickname' value = {this.state.nickname} className = {classes.textField} onChange = {(e)=>this.handleChange('nickname',e)} fullWidth/>
+          </DialogContent>
 
-        <DialogActions >
-        <Button onClick = {this.handleClear} color = 'primary'> 清空 </Button>
-        <Button onClick = {this.handleCloseRe} color = 'primary'> 关闭 </Button>
-        <Button onClick = {this.handleSubmitRe} color = "primary"> 注册 </Button>
-        </DialogActions>
+          <DialogActions >
+          <Button onClick = {this.handleClear} color = 'primary'> 清空 </Button>
+          <Button onClick = {this.handleCloseRe} color = 'primary'> 关闭 </Button>
+          <Button onClick = {this.handleSubmitRe} color = "primary"> 注册 </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog open = {this.state.openVa} onClose = {this.handleCloseVa}>
+          <DialogTitle> 输入验证码完成学邮验证 </DialogTitle>
+          <DialogContent className = {classes.content}>
+          <TextField margin = 'dense' id = 'validateCode' label = '验证码' type = 'validateCode' value = {this.state.validateCode} className = {classes.textField} onChange = {(e)=>this.handleChange('validateCode',e)} fullWidth/>
+          </DialogContent>
+          <DialogActions >
+          <Button onClick = {this.handleSubmitVa} color = "primary"> 验证 </Button>
+          </DialogActions>
         </Dialog>
 
       </div>

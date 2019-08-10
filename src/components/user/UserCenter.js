@@ -16,7 +16,7 @@ import MyJoin from './MyJoin'; //报名活动tab
 import MyTeam from './MyTeam'; //集体账户tab管理
 
 // import SplitButton from './SplitButton'; //按钮组
-import TeamDetails from './TeamDetails';
+// import TeamDetails from './TeamDetails';
 
 const styles = (theme) => ({
   root: {
@@ -66,8 +66,7 @@ class UserCenter extends Component {
 
         <Typography component="div" role="tabpanel" hidden={this.state.value !== 1} id='tabpanel-1'>
           <Box p={3}>
-            {/*<MyTeam/>*/}
-            <TeamDetails/>
+            <MyTeam/>
           </Box>
         </Typography>
 

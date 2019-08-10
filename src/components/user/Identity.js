@@ -21,6 +21,9 @@ const styles = () => ({
   root: {
     flexGrow: 1,
     margin: 10,
+  },
+  button: {
+    marginLeft: 10,
   }
 });
 
@@ -64,8 +67,12 @@ class Identity extends Component{
 
   }
 
-  handleTeamDetail = (teamId, e) =>{
-    this.props.onClick(teamId);
+  handleActivity = (teamId, e) =>{
+    this.props.onClick(teamId, "activity"); //活动详情
+  }
+
+  handleMember = (teamId, isLeader, e) =>{
+    this.props.onClick(teamId, "member", isLeader); //成员管理
   }
 
 
@@ -92,7 +99,8 @@ class Identity extends Component{
                   <TableCell align="center">{team.teamName}</TableCell>
                   <TableCell align="center">{team.teamLeader?'社长':''}{!team.teamLeader&&team.teamAdmin?'管理员':''}{!team.teamLeader&&!team.teamAdmin?'普通成员':''}</TableCell>
                   <TableCell align="center">
-                  <Button variant="contained" color="primary" onClick={(e) => this.handleTeamDetail(team.teamId)}> 社团详情 </Button>
+                  <Button variant="contained" color="primary" onClick={(e) => this.handleActivity(team.teamId)} className={classes.button}> 活动详情 </Button>
+                  <Button variant="contained" color="primary" onClick={(e) => this.handleMember(team.teamId, team.teamLeader)} className={classes.button}> 成员管理 </Button>
                   </TableCell>
                   </TableRow>
                 ))}

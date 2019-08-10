@@ -1,3 +1,9 @@
+## 效果查看
+```
+浏览器打开/dist/index.htm
++ Chrome浏览器打开（不支持本地打开的html对cookie的读写，建议npm test后在线查看效果）
++ FireFox浏览器打开（可以正常显示，但是展示效果没有chrome好）
+```
 ## 使用步骤
 
 + 安装npm

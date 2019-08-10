@@ -19,7 +19,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import {HashRouter, Switch, Route, Link} from "react-router-dom";
+import {HashRouter, Switch, Route, Link, HashHistory} from "react-router-dom";
 import cookie from 'react-cookies';
 //我的组件
 import Footer from './Footer'; //版权所有
@@ -29,6 +29,10 @@ import Activity from './activity/Activity'; //活动广场
 import SingleActivityInfo from './activity/SingleActivityInfo'; //活动详情
 import UserCenter from './user/UserCenter'; //个人主页
 import LoginControl from './login/LoginControl';
+import Search from './search/Search'; //搜索页
+
+import { createHashHistory } from 'history'
+const history = createHashHistory();
 
 const drawerWidth = 200;
 
@@ -138,7 +142,8 @@ class Navigation extends Component {
     super();
     this.state = {
       open: false,
-      urlocator: '/loginbefore',
+      isSearch: false, //true则隐藏搜索框
+      keyword: '', //搜索关键字
     };
   }
 
@@ -152,6 +157,23 @@ class Navigation extends Component {
     this.setState({
       open: false,
     })
+  }
+
+  handleChange = (name, e) => {
+    this.setState({
+      [name]: e.target.value,
+    });
+  }
+
+  handleSearch = (e) => {
+    if (e.nativeEvent.keyCode === 13) { //e.nativeEvent获取原生的事件对像(回车事件)
+      history.push({
+        pathname: '/search',
+        search: '?key=' + this.state.keyword
+      })
+      //进入搜索页禁止使用顶部搜索框
+      this.setState({isSearch: true})
+    }
   }
 
   render() {
@@ -171,11 +193,12 @@ class Navigation extends Component {
               旦事-danshi
             </Typography>
 
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase placeholder="搜索活动…" classes={{root: classes.inputRoot,input: classes.inputInput,}} inputProps={{ 'aria-label': 'search' }}/>
+            <div className={this.state.isSearch ? classes.hide : classes.search}>
+              <div className={classes.searchIcon}><SearchIcon /></div>
+              <InputBase placeholder="搜索活动…" classes={{root: classes.inputRoot,input: classes.inputInput,}}
+                onChange={(e) => this.handleChange('keyword', e)}
+                onKeyPress={(e) => this.handleSearch(e)}
+                />
             </div>
 
           </Toolbar>
@@ -220,6 +243,7 @@ class Navigation extends Component {
             <Route path= {'/slideshow'} component={SlideShow}/>
             <Route path= {'/activity'} component={Activity}/>
             <Route path= {'/singleActivityInfo'} component={SingleActivityInfo}/>
+            <Route path= {'/search'} component={Search}/>
             <Route path= {'/userCenter'} component={UserCenter}/>
           </Switch>
 
